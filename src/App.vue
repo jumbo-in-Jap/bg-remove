@@ -69,7 +69,7 @@ export default class App extends Vue {
 
   async setupVideo() {
     const localStream = await navigator.mediaDevices.getUserMedia({
-      audio: false, video: true
+      audio: true, video: true
     })
     this.localStream = localStream
     const localVideoElement = document.getElementById('local-stream') as HTMLVideoElement
@@ -82,7 +82,14 @@ export default class App extends Vue {
     const targetPeerId = document.location.search != "" ? 'user1' : 'user2'
     const localCanvas = document.getElementById('local-stream-output') as CanvasElement
     const localStream = localCanvas.captureStream()
-    const mediaConnection = this.peer!!.call(targetPeerId, localStream);
+    const mediaConnection = this.peer!!.call(targetPeerId, this.localStream!!, {
+      audioCodec: 'G722',
+      audioBandwidth: 100,
+      videoCodec: 'H264',
+      videoBandwidth: 250,
+      videoReceiveEnabled: true,
+      audioReceiveEnabled: true
+    });
     // const mediaConnection = this.peer!!.call(targetPeerId, this.localStream!!);
     mediaConnection.on('stream', async stream => {
       const remoteVideoElement = document.getElementById('remote-stream') as HTMLVideoElement
