@@ -54,7 +54,7 @@ const Peer = window.Peer;
       return;
     }
     const peerId = document.location.search !== "" ? 'user1' : 'user2'
-    const mediaConnection = peer.call(peerId, localStream);
+    const mediaConnection = peer.call(peerId, localStream, CALL_OPTION);
 
     mediaConnection.on('stream', async stream => {
       // Render remote stream for caller
@@ -75,7 +75,7 @@ const Peer = window.Peer;
 
   // Register callee handler
   peer.on('call', mediaConnection => {
-    mediaConnection.answer(localStream);
+    mediaConnection.answer(localStream, ANSWER_OPTION);
 
     mediaConnection.on('stream', async stream => {
       // Render remote stream for callee
