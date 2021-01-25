@@ -27,8 +27,9 @@ const Peer = window.Peer;
   localVideo.srcObject = localStream;
   localVideo.playsInline = true;
   await localVideo.play().catch(console.error);
+  const peerId = document.location.search == "" ? 'user1' : 'user2'
 
-  const peer = (window.peer = new Peer({
+  const peer = (window.peer = new Peer(peerId, {
     key: '85902050-5528-4f31-8dc9-019fad7e974d',
     debug: 3,
   }));
@@ -40,8 +41,8 @@ const Peer = window.Peer;
     if (!peer.open) {
       return;
     }
-
-    const mediaConnection = peer.call(remoteId.value, localStream);
+    const peerId = document.location.search !== "" ? 'user1' : 'user2'
+    const mediaConnection = peer.call(peerId, localStream);
 
     mediaConnection.on('stream', async stream => {
       // Render remote stream for caller
