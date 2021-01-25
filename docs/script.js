@@ -18,7 +18,7 @@ const Peer = window.Peer;
   }
   const ANSWER_OPTION = { // call側への要求
     audioCodec: 'G722',
-    videoCodec: 'VP9',
+    // videoCodec: 'VP9',
     // videoBandwidth: 250,
   }
 
