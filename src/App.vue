@@ -47,6 +47,14 @@ interface CanvasElement extends HTMLCanvasElement {
 export default class App extends Vue {
   peer: Peer | null = null
   localStream: MediaStream | null = null
+  OPTION: any = {
+      audioCodec: 'G722',
+      audioBandwidth: 100,
+      videoCodec: 'H264',
+      videoBandwidth: 250,
+      videoReceiveEnabled: true,
+      audioReceiveEnabled: true
+  }
 
   async mounted() {
     await this.init()
@@ -57,7 +65,7 @@ export default class App extends Vue {
     const peerId = document.location.search == "" ? 'user1' : 'user2'
     this.peer = new Peer(peerId, { key: '85902050-5528-4f31-8dc9-019fad7e974d', debug: 3, })
     this.peer.on('call', mediaConnection => {
-      mediaConnection.answer(this.localStream!!);
+      mediaConnection.answer(this.localStream!!, this.OPTION);
       mediaConnection.on('stream', async stream => {
         const remoteVideoElement = document.getElementById('remote-stream') as HTMLVideoElement
         remoteVideoElement.srcObject = stream
@@ -80,16 +88,9 @@ export default class App extends Vue {
   /** onclick methos */
   public call() {
     const targetPeerId = document.location.search != "" ? 'user1' : 'user2'
-    const localCanvas = document.getElementById('local-stream-output') as CanvasElement
-    const localStream = localCanvas.captureStream()
-    const mediaConnection = this.peer!!.call(targetPeerId, this.localStream!!, {
-      audioCodec: 'G722',
-      audioBandwidth: 100,
-      videoCodec: 'H264',
-      videoBandwidth: 250,
-      videoReceiveEnabled: true,
-      audioReceiveEnabled: true
-    });
+    // const localCanvas = document.getElementById('local-stream-output') as CanvasElement
+    // const localStream = localCanvas.captureStream()
+    const mediaConnection = this.peer!!.call(targetPeerId, this.localStream!!, this.OPTION);
     // const mediaConnection = this.peer!!.call(targetPeerId, this.localStream!!);
     mediaConnection.on('stream', async stream => {
       const remoteVideoElement = document.getElementById('remote-stream') as HTMLVideoElement
