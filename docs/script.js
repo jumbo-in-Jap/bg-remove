@@ -10,16 +10,19 @@ const Peer = window.Peer;
   const meta = document.getElementById('js-meta');
   const sdkSrc = document.querySelector('script[src*=skyway]');
   const CALL_OPTION = { //answer側への要求
-    audioCodec: 'G722',
-    videoCodec: 'VP9',
+    // audioCodec: 'G722',
+    audioBandwidth: 50,
+    videoCodec: 'h264',
     videoBandwidth: 250,
     videoReceiveEnabled: true,
     audioReceiveEnabled: true
   }
   const ANSWER_OPTION = { // call側への要求
-    audioCodec: 'G722',
-    videoCodec: 'VP9',
+    audioBandwidth: 50,
+    videoCodec: 'h264',
     videoBandwidth: 250,
+    videoReceiveEnabled: true,
+    audioReceiveEnabled: true
   }
 
   meta.innerText = `
