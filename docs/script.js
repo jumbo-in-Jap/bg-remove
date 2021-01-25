@@ -9,6 +9,18 @@ const Peer = window.Peer;
   const remoteId = document.getElementById('js-remote-id');
   const meta = document.getElementById('js-meta');
   const sdkSrc = document.querySelector('script[src*=skyway]');
+  const CALL_OPTION = { //answer側への要求
+    audioCodec: 'G722',
+    videoCodec: 'VP8',
+    videoBandwidth: 250,
+    videoReceiveEnabled: true,
+    audioReceiveEnabled: true
+  }
+  const ANSWER_OPTION = { // call側への要求
+    audioCodec: 'G722',
+    videoCodec: 'VP8',
+    videoBandwidth: 250,
+  }
 
   meta.innerText = `
     UA: ${navigator.userAgent}
