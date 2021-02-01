@@ -50,7 +50,7 @@ export default class App extends Vue {
   OPTION: any = {
       audioCodec: 'G722',
       audioBandwidth: 100,
-      videoCodec: 'H264',
+      videoCodec: 'VP9',
       videoBandwidth: 250,
       videoReceiveEnabled: true,
       audioReceiveEnabled: true
