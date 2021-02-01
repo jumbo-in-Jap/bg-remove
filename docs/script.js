@@ -12,7 +12,7 @@ const Peer = window.Peer;
   const CALL_OPTION = { //answer側への要求
     // audioCodec: 'G722',
     audioBandwidth: 50,
-    videoCodec: 'VP9',
+    videoCodec: 'VP8',
     // videoBandwidth: 250,
     videoReceiveEnabled: true,
     audioReceiveEnabled: true
